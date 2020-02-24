@@ -1,26 +1,33 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
 
-const Users = sequelize.define({
-    Id: {
+import rent_movies from './rent_movies';
+import sale_movies from './sale_movies';
+
+const Users = sequelize.define('users',{
+    id: {
         type: Sequelize.INTEGER,
         primaryKey: true
     }, 
-    FirstName: {
+    first_name: {
         type: Sequelize.STRING
     },
-    LastName: {
+    last_name: {
         type: Sequelize.STRING
     },
-    Birthday: {
+    date_of_birth: {
         type: Sequelize.DATE
     },
-    IdType: {
+    id_type: {
         type: Sequelize.INTEGER,
         
     }
 },{
     timestamps: false
-})
+});
 
-export default Users;
+users.hasMany(rent_movies, {foreignKey: 'id_user', sourceKey: 'id' });
+
+users.hasMany(sale_movies, { foreignKey: 'id_user', sourceKey: 'id' });
+
+export default users;
