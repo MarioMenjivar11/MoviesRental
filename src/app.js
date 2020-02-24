@@ -2,8 +2,8 @@ import express, { json } from 'express';
 import morgan from 'morgan';
 
 //Importing router
-import moviesRoutes from './routes/movies';
-import usersRoutes from './routes/users';
+import movies_routes from './routes/movies';
+import users_routes from './routes/users';
 
 //Initialization
 const app = express();
@@ -13,8 +13,8 @@ app.use(morgan('dev'));
 app.use(json());
 
 //Routes
-app.use('/api/movies', moviesRoutes);
-app.use('/api/users',usersRoutes);
+app.use('/api/movies', movies_routes);
+app.use('/api/users',users_routes);
 
 export default app;
 
