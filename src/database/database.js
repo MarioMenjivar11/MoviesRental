@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize';
 
-export const new Sequelize(
+export const sequelize = new Sequelize(
     'MoviesRental',
     'postgres',
     'postgres',
