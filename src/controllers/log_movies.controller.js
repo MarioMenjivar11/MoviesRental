@@ -1,10 +1,10 @@
-import movies from '../models/movies';
+import log_movies from '../models/log_movies';
 
-export async function get_movies(req, res){
-    const list_movies = await movies.findAll();
+export async function get_log_movies(req, res){
+    const list_log_movies = await log_movies.findAll();
     try{
         res.json({
-        data: list_movies
+        data: list_log_movies
         });
     }
     catch(error){
@@ -17,23 +17,21 @@ export async function get_movies(req, res){
 };
 
 //Function to create a movie
-export async function create_movie(req, res){
+export async function create_log_movie(req, res){
     try{
-        const { title, description, stock, rental_price, sale_price, id_availability } = req.body;
-        let new_movie = await movies.create({
+        const { title, rental_price, sale_price, id_movie } = req.body;
+        let new_log_movie = await log_movies.create({
             title,
-            description,
-            stock,
             rental_price,
             sale_price,
-            id_availability
+            id_movie
         },{
-            fields: ['title', 'description', 'stock', 'rental_price', 'sale_price', 'id_availability']
+            fields: ['title', 'rental_price', 'sale_price', 'id_movie']
         });
-        if (new_movie){
+        if (new_log_movie){
             return res.json({
-                message: 'Project created successfully',
-                data: new_movie
+                message: 'Log movie created successfully',
+                data: new_log_movie
             });
         }
     }
@@ -47,16 +45,16 @@ export async function create_movie(req, res){
 };
 
 //Function to get a movie 
-export async function get_one_movie(req, res){
+export async function get_one_log_movie(req, res){
     try{
         const { id } = req.params;
-        const movie = await movies.findOne({
+        const log_movie = await log_movies.findOne({
             where: {
                 id
             }
         });
         res.json({
-            data: movie
+            data: log_movie
         });
     }
     catch(error) {
@@ -69,16 +67,16 @@ export async function get_one_movie(req, res){
 };
 
 //Function to delete movies
-export async function delete_movie(req, res){
+export async function delete_log_movie(req, res){
     try{
         const { id } = req.params;
-        const delete_row_count = await movies.destroy({
+        const delete_row_count = await log_movies.destroy({
             where: {
                 id
             }
         });
         res.json({
-            message: 'Movie deleted successfully',
+            message: 'Log Movie deleted successfully',
             count: delete_row_count
         });
     }
@@ -92,32 +90,30 @@ export async function delete_movie(req, res){
 };
 
 //Function to update movies
-export async function update_movies(req, res){
+export async function update_log_movies(req, res){
     const { id } = req.params;
-    const { title, description, stock, rental_price, sale_price, id_availability } = req.body;
+    const { title, rental_price, sale_price, id_movie } = req.body;
 
-    const list_movies = await movies.findAll({
-        attributes: ['title','description','stock','rental_price','sale_price','id_availability'],
+    const list_log_movies = await log_movies.findAll({
+        attributes: ['id','title','rental_price','sale_price','id_movie'],
         where:{
             id
         }
     });
-    if (list_movies.length >0 ){
-        list_movies.forEach(async movies => {
-            await movies.update({
+    if (list_log_movies.length >0 ){
+        list_log_movies.forEach(async log_movies => {
+            await log_movies.update({
+                id,
                 title,
-                description,
-                stock,
                 rental_price,
                 sale_price,
-                id_availability
+                id_movie
             });
         })
     }
 
     return res.json({
-        message: 'Movie updated successfully',
-        data: list_movies
+        message: 'Log Movie updated successfully',
+        data: list_log_movies
     });
-
 }
