@@ -37,7 +37,10 @@ CREATE TABLE IF NOT EXISTS users(
     first_name VARCHAR(100) NOT NULL CHECK (first_name <> ''),
     last_name VARCHAR(100) NOT NULL CHECK (last_name <> ''),
     date_of_birth TIMESTAMP NOT NULL,  
-    idtype INTEGER NOT NULL REFERENCES type_users(id)
+	login varchar(100) NOT NULL,
+    email varchar(150) NOT NULL,
+	password varchar(100) NOT NULL,
+    id_type INTEGER NOT NULL REFERENCES type_users(id)
 );
 
 CREATE TABLE IF NOT EXISTS rent_movies(

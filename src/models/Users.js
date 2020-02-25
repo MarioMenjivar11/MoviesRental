@@ -4,7 +4,7 @@ import { sequelize } from '../database/database';
 import rent_movies from './rent_movies';
 import sale_movies from './sale_movies';
 
-const Users = sequelize.define('users',{
+const users = sequelize.define('users',{
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
@@ -18,6 +18,15 @@ const Users = sequelize.define('users',{
     date_of_birth: {
         type: Sequelize.DATE
     },
+    email: {
+        type: Sequelize.STRING
+    },
+    login: {
+        type: Sequelize.STRING
+    },
+    password: {
+        type: Sequelize.STRING
+    },
     id_type: {
         type: Sequelize.INTEGER,
         
@@ -26,8 +35,7 @@ const Users = sequelize.define('users',{
     timestamps: false
 });
 
-users.hasMany(rent_movies, {foreignKey: 'id_user', sourceKey: 'id' });
-
+users.hasMany(rent_movies, { foreignKey: 'id_user', sourceKey: 'id' });
 users.hasMany(sale_movies, { foreignKey: 'id_user', sourceKey: 'id' });
 
 export default users;
